@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\QueryException;
 
 class Handler extends ExceptionHandler
 {
@@ -19,7 +20,7 @@ class Handler extends ExceptionHandler
         \Symfony\Component\HttpKernel\Exception\HttpException::class,
         \Illuminate\Database\Eloquent\ModelNotFoundException::class,
         \Illuminate\Session\TokenMismatchException::class,
-        \Illuminate\Validation\ValidationException::class,
+        \Illuminate\Validation\ValidationException::class
     ];
 
     /**
@@ -44,6 +45,17 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        //Query Exception Handler
+        if($exception instanceof QueryException){
+          if($exception->errorInfo[1] == 1062){
+            return response('Email Exist!', 200)->header('Content-Type', 'text/plain');
+          }
+          else{
+            return response('Unknown Error!', 200)->header('Content-Type', 'text/plain');;
+          }
+        }
+        
+        //Other Exception
         return parent::render($request, $exception);
     }
 

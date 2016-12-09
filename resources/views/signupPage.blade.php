@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Sign In Page</title>
 
@@ -20,7 +21,10 @@
 
     <!-- jQuery Core -->
     <script src="../js/jquery.js"></script>
+    <!-- Ajax Config -->
+    <script src="../js/ajaxConfig.js"></script>
     <!-- My Script -->
+    <script src="../js/myScript.js"></script>
     <script>
       $(document).ready(function(){
 
@@ -47,29 +51,29 @@
             $.ajax({
               url:"../signup/do",
               type: "POST",
-              data:{email:email, firstname:firstname, lastname:lastname, password:password, sq1:sq1, sa1:sa1, sq2:sq2, sa2:sa2},
+              data:{email:email,
+                    firstname:firstname,
+                    lastname:lastname,
+                    password:password,
+                    sq1:sq1,
+                    sa1:sa1,
+                    sq2:sq2,
+                    sa2:sa2},
               success:function(data){
-                if(data === "pass"){
+                if(data == "pass"){
                   window.location.href = "../signupsuccess";
                 }
+                else{
+                  errorShake($("#signupresponsediv"), data);
+                }
               },
-              error:function(err){
-                $("#signupresponsediv").html("Sign up failed! with Error:" + err);
-                $("#signupresponsediv").show();
-                $("#signupresponsediv").addClass("animated shake");
-                $("#signupresponsediv").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function(){
-                  $("#signupresponsediv").removeClass("animated shake");
-                });
+              error:function(xhr, ajaxOptions, thrownError){
+                errorShake($("#signupresponsediv"), "Sign up failed! with Error:" + JSON.stringify(xhr));
               }
             });
           }
           else{
-            $("#signupresponsediv").html("Passwords don't match.");
-            $("#signupresponsediv").show();
-            $("#signupresponsediv").addClass("animated shake");
-            $("#signupresponsediv").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function(){
-              $("#signupresponsediv").removeClass("animated shake");
-            });
+            errorShake($("#signupresponsediv"), "Passwords don't match.");
           }
 
         });
@@ -103,27 +107,28 @@
         </nav>
       <br>
       <br>
-      <form class="form-signup animated fadeIn">
+      <form class="form-signup animated fadeIn" action="/signup/do" method="post">
+        {{ csrf_field() }}<!-- CSRF Protection -->
         <h2 class="form-signup-heading">Sign Up Form</h2>
         <div class="alert alert-danger" id="signupresponsediv" style="display:none;">
         </div>
         <div class="form-group">
           <label for="email" class="col-form-label">Email <span class="requiredstar">*</span> </label>
-          <input type="email" class="form-control" id="email" required>
+          <input type="email" class="form-control" id="email" name="email" required>
         </div>
         <div class="form-group row">
           <div class="col-sm-6">
             <label for="firstname" class="col-form-label">First Name <span class="requiredstar">*</span> </label>
-            <input type="text" class="form-control" id="firstname" required>
+            <input type="text" class="form-control" id="firstname" name="firstname" required>
           </div>
           <div class="col-sm-6">
             <label for="lastname" class="col-form-label">Last Name <span class="requiredstar">*</span> </label>
-            <input type="text" class="form-control" id="lastname" required>
+            <input type="text" class="form-control" id="lastname" name="lastname" required>
           </div>
         </div>
         <div class="form-group">
           <label for="password" class="col-form-label">Password <span class="requiredstar">*</span> </label>
-          <input type="password" class="form-control" id="password" required>
+          <input type="password" class="form-control" id="password" name="password" required>
         </div>
         <div class="form-group">
           <label for="passwordconfirm" class="col-form-label">Confrim Password <span class="requiredstar">*</span> </label>
@@ -131,17 +136,17 @@
         </div>
         <div class="form-group">
           <label for="secquestion1" class="col-form-label">Security Question 1 <span class="requiredstar">*</span> </label>
-          <select class="form-control" id="secquestion1">
+          <select class="form-control" id="secquestion1" name="secquestion1">
              <?php echo $question_options ?>
           </select>
-          <input type="text" class="form-control" id="secquestion1ans" required>
+          <input type="text" class="form-control" id="secquestion1ans" name="secquestion1ans" required>
         </div>
         <div class="form-group">
           <label for="secquestion2" class="col-form-label">Security Question 2 <span class="requiredstar">*</span> </label>
-          <select class="form-control" id="secquestion2">
+          <select class="form-control" id="secquestion2" name="secquestion2">
              <?php echo $question_options ?>
           </select>
-          <input type="text" class="form-control" id="secquestion2ans" required>
+          <input type="text" class="form-control" id="secquestion2ans" name="secquestion2ans" required>
         </div>
         <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>

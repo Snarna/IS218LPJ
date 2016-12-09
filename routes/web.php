@@ -21,6 +21,11 @@ Route::get('/login', function () {
     return view('loginPage');
 });
 
+//Signup Success Route
+Route::get('/signupsuccess', function(){
+    return view('signupSuccess');
+});
+
 //Signup Route
 Route::get('/signup', 'SignupController@makeSignupPage');
 

@@ -19,10 +19,8 @@ class SignupController extends Controller {
     $sa1= $request->input('sa1');
     $sq2 = $request->input('sq2');
     $sa2 = $request->input('sa2');
-    $reg_date = date('Y-m-d G:i:s');
-    $last_login_date = date('Y-m-d G:i:s');
 
-    //Do the Login working on it
+    //Create New User Account
     $user = new User;
     $user->email = $email;
     $user->first_name = $firstname;
@@ -31,7 +29,18 @@ class SignupController extends Controller {
     $user->save();
     
     $a1 = new Answer;
+    $a1->user_id = $user->id;
+    $a1->question_id = $sq1;
+    $a1->user_answer = $sa1;
+    $a1->save();
 
+    $a2 = new Answer;
+    $a2->user_id = $user->id;
+    $a2->question_id = $sq2;
+    $a2->user_answer = $sa2;
+    $a2->save();
+
+    return "pass";
   }
 
   //Get Questions From Questions Table
