@@ -11,14 +11,18 @@
 |
 */
 
+//Home Page 'Login'
 Route::get('/', function () {
-    return view('welcome');
+    return view('loginPage');
 });
 
+//Login Route
 Route::get('/login', function () {
     return view('loginPage');
 });
 
-Route::get('/signup', function () {
-    return view('signupPage');
-});
+//Signup Route
+Route::get('/signup', 'SignupController@makeSignupPage');
+
+//Signup Route
+Route::post('/signup/do', 'SignupController@doSignUp');

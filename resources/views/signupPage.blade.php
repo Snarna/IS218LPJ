@@ -45,7 +45,7 @@
 
           if(password === passwordconfirm){
             $.ajax({
-              url:"../classes/signup.class",
+              url:"../signup/do",
               type: "POST",
               data:{email:email, firstname:firstname, lastname:lastname, password:password, sq1:sq1, sa1:sa1, sq2:sq2, sa2:sa2},
               success:function(data){
@@ -132,18 +132,14 @@
         <div class="form-group">
           <label for="secquestion1" class="col-form-label">Security Question 1 <span class="requiredstar">*</span> </label>
           <select class="form-control" id="secquestion1">
-            <option value="What high school did you attend?">What high school did you attend?</option>
-            <option value="What was the make of your first car?">What was the make of your first car?</option>
-            <option value="Which is your favorite web browser?">Which is your favorite web browser?</option>
+             <?php echo $question_options ?>
           </select>
           <input type="text" class="form-control" id="secquestion1ans" required>
         </div>
         <div class="form-group">
           <label for="secquestion2" class="col-form-label">Security Question 2 <span class="requiredstar">*</span> </label>
           <select class="form-control" id="secquestion2">
-            <option value="In what city were you born?">In what city were you born?</option>
-            <option value="What is the name of your favorite pet?">What is the name of your favorite pet?</option>
-            <option value="What is your favorite color?">What is your favorite color?</option>
+             <?php echo $question_options ?>
           </select>
           <input type="text" class="form-control" id="secquestion2ans" required>
         </div>
