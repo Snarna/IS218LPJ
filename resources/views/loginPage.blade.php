@@ -73,7 +73,7 @@
         @include('\layouts\beforeLoginNavBar')
         <br>
         <br>
-        <form class="form-login animated fadeIn">
+        <form class="form-login mytransparent animated fadeIn">
           <h2 class="form-login-heading">Please Login</h2>
           <div class="alert alert-danger" id="loginresponsediv" style="display:none;">
           </div>

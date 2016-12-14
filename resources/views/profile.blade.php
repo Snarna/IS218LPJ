@@ -25,15 +25,23 @@
       <script src="../js/bootstrap.min.js"></script>
       <!-- My Script -->
       <script src="../js/myScript.js"></script>
+      <script>
+      $(document).on('change', ':file', function() {
+        var input = $(this),
+        fileName = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        $("#fileInput").val(fileName);
+        $("#fileUpload").prop("disabled", false);
+      });
+      </script>
    </head>
    <body>
       <div class="container">
          @include('\layouts\afterLoginNavBar')
          <br>
+         <br>
          <div class="container animated fadeIn">
             <div class="row">
-               <div class="col-xs-12 col-sm-12">
-                  <div class="well well-sm">
+               <div class="col-sm-12 mypadding mytransparent">
                      <div class="row">
                         <div class="col-sm-2">
                            <img src="{{$avatarPath}}" alt="" class="img-rounded img-responsive" />
@@ -47,12 +55,27 @@
                            </p>
                            <!-- Split button -->
                            <div class="btn-group">
-                              <button type="button" class="btn btn-primary">Change Avatar</button>
+                              <button data-toggle="collapse" data-target="#changeAvatarDiv" type="button" class="btn btn-primary">Change Avatar</button>
                            </div>
                         </div>
                      </div>
-                  </div>
                </div>
+            </div>
+            <br>
+            <div id="changeAvatarDiv" class="row mytransparent collapse">
+              <form>
+                <div class="input-group">
+                  <label class="input-group-btn">
+                    <span class="btn btn-secondary">
+                        Browse… <input type="file" style="display: none;" accept="image/*">
+                    </span>
+                </label>
+                  <input type="text" class="form-control" id="fileInput" readonly>
+                  <span class="input-group-btn">
+                    <button class="btn btn-secondary" type="button" id="fileUpload" disabled>Up Load Avatar</button>
+                  </span>
+                </div>
+              </form>
             </div>
          </div>
       </div>

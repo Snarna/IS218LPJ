@@ -86,7 +86,7 @@
       @include('\layouts\beforeLoginNavBar')
       <br>
       <br>
-      <form class="form-signup animated fadeIn" action="/signup/do" method="post">
+      <form class="form-signup mytransparent animated fadeIn" action="/signup/do" method="post">
         {{ csrf_field() }}<!-- CSRF Protection -->
         <h2 class="form-signup-heading">Sign Up Form</h2>
         <div class="alert alert-danger" id="signupresponsediv" style="display:none;">
