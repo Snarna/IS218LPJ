@@ -15,4 +15,8 @@ class ProfileController extends Controller
       return view('profile')->with('user', $userData)
                             ->with('avatarPath', $avatarPath);
     }
+
+    public function uploadAvatar(){
+      $userData = Auth::user();
+    }
 }

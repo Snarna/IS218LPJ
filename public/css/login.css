@@ -1,12 +1,3 @@
-body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-image: url("../images/bk2.jpg");
-  background-repeat:no-repeat;
-  background-size:100% 100%;
-  background-attachment: fixed;
-}
-
 .form-login {
   max-width: 330px;
   padding: 15px;
