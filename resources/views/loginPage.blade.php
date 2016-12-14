@@ -70,7 +70,7 @@
 
   <body>
     <div class="container">
-        @include('\layouts\beforeLoginNavBar')
+        @include('..\layouts\beforeLoginNavBar')
         <br>
         <br>
         <form class="form-login mytransparent animated fadeIn">
