@@ -6,6 +6,7 @@ use App\User;
 use App\Question;
 use App\Answer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class SignupController extends Controller {
   //Do Signup Action
@@ -25,9 +26,9 @@ class SignupController extends Controller {
     $user->email = $email;
     $user->first_name = $firstname;
     $user->last_name = $lastname;
-    $user->password = $password;
+    $user->password = Hash::make($password);
     $user->save();
-    
+
     $a1 = new Answer;
     $a1->user_id = $user->id;
     $a1->question_id = $sq1;
@@ -44,7 +45,7 @@ class SignupController extends Controller {
   }
 
   //Get Questions From Questions Table
-  public static function makeSignupPage(Request $request){
+  public function makeSignupPage(Request $request){
     //Get Questions From Database
     $qs = Question::all();
     $result = '';
@@ -54,5 +55,9 @@ class SignupController extends Controller {
 
     //Return The View
     return view('signupPage')->with('question_options', $result);
+  }
+
+  public function makeSignupSuccessPage(){
+    return view('signupSuccess');
   }
 }

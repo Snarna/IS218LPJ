@@ -15,7 +15,7 @@
     <!-- CSS3 Animation -->
     <link rel="stylesheet" href="../css/animate.css">
     <!-- Favicon -->
-    <link rel="icon" href="http://sstatic.net/stackoverflow/img/favicon.ico">
+    <link rel="icon" href="#">
   </head>
 
   <body>

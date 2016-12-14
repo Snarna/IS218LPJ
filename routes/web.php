@@ -11,23 +11,52 @@
 |
 */
 
+/*
+/Login Routes
+*/
+
 //Home Page 'Login'
-Route::get('/', function () {
-    return view('loginPage');
-});
+Route::get('/', 'LoginController@makeLoginView');
 
 //Login Route
-Route::get('/login', function () {
-    return view('loginPage');
-});
+Route::get('/login', 'LoginController@makeLoginView');
 
-//Signup Success Route
-Route::get('/signupsuccess', function(){
-    return view('signupSuccess');
-});
+//Handle Login Authentication
+Route::post('/login', 'LoginController@doLogin');
+
+
+/*
+/Logout Routes
+*/
+Route::get('/logout', 'LoginController@doLogout');
+
+
+
+/*
+/Signup Routes
+*/
 
 //Signup Route
 Route::get('/signup', 'SignupController@makeSignupPage');
 
-//Signup Route
+//Do Signup Route
 Route::post('/signup/do', 'SignupController@doSignUp');
+
+//Signup Success Route
+Route::get('/signupsuccess', 'SignupController@makeSignupSuccessPage');
+
+
+
+/*
+/Service Routes
+*/
+//Home Page
+Route::get('/home', 'HomeController@makeHomePage')->middleware('checkauth');
+
+//Profile Page
+Route::get('/profile', 'ProfileController@makeProfilePage')->middleware('checkauth');
+
+/*
+/Image Routes
+*/
+Route::get('/avatars/{filename}', 'ImageController@getImage')->middleware('checkauth');

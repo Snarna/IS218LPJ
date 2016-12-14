@@ -54,7 +54,7 @@ class Handler extends ExceptionHandler
             return response('Unknown Error!', 200)->header('Content-Type', 'text/plain');;
           }
         }
-        
+
         //Other Exception
         return parent::render($request, $exception);
     }
