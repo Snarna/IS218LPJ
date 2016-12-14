@@ -36,7 +36,7 @@
    </head>
    <body>
       <div class="container">
-         @include('..\layouts\afterLoginNavBar')
+         @include('afterLoginNavBar')
          <br>
          <br>
          <div class="container animated fadeIn">

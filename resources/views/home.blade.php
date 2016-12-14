@@ -44,7 +44,7 @@
    </head>
    <body>
       <div class="container">
-         @include('..\layouts\afterLoginNavBar')
+         @include('afterLoginNavBar')
          <br>
       </div>
       <!-- /container -->
