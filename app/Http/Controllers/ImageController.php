@@ -12,7 +12,7 @@ class ImageController extends Controller
   {
       $path = storage_path() . '/app/avatars/' . $filename;
 
-      if(!File::exists($path)) echo $path;
+      if(!File::exists($path)) abort(404);
 
       $file = File::get($path);
       $type = File::type($path);

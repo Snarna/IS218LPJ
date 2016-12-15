@@ -29,8 +29,41 @@
       $(document).on('change', ':file', function() {
         var input = $(this),
         fileName = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        $("#fileInput").val(fileName);
+        $("#fileInputView").val(fileName);
         $("#fileUpload").prop("disabled", false);
+
+        $("form").submit(function(event){
+          //Prevent Submit
+          event.preventDefault();
+
+          //Get File
+          var file = new FormData(this);
+
+          //If File Exist
+          if(file){
+            $.ajax({
+              url: "/profile",
+              type: "POST",
+              data: file,
+              contentType: false,
+              processData: false,
+              dataType: 'json',
+              success: function(data){
+                if(data.status = 1){
+                  fadePic($("#avatarImg"), data.path);
+                  successFadeIn($("#profileresponsediv"), "Success!");
+                  clearForm($('#uploadForm'));
+                }
+                else{
+                  errorShake($("#profileresponsediv"), data.err);
+                }
+              },
+              error: function(xhr, ajaxOptions, thrownError){
+                errorShake($("#profileresponsediv"), JSON.stringify(xhr));
+              }
+            });
+          }
+        });
       });
       </script>
    </head>
@@ -44,7 +77,7 @@
                <div class="col-sm-12 mypadding mytransparent">
                      <div class="row">
                         <div class="col-sm-2">
-                           <img src="{{$avatarPath}}" alt="" class="img-rounded img-responsive" />
+                           <img id="avatarImg" src="{{$avatarPath}}" alt="" class="img-rounded img-responsive" />
                         </div>
                         <div class="col-sm-10">
                            <h4>{{$user['first_name'] .' '. $user['last_name']}} </h4>
@@ -63,16 +96,18 @@
             </div>
             <br>
             <div id="changeAvatarDiv" class="row mytransparent collapse">
-              <form>
+              <div id="profileresponsediv" style="display:none;">
+              </div>
+              <form id="uploadForm">
                 <div class="input-group">
                   <label class="input-group-btn">
                     <span class="btn btn-secondary">
-                        Browse… <input type="file" style="display: none;" accept="image/*">
+                        Browse… <input type="file" name="avatar" id="fileInput" style="display: none;" accept="image/*">
                     </span>
                 </label>
-                  <input type="text" class="form-control" id="fileInput" readonly>
+                  <input type="text" class="form-control" id="fileInputView" readonly>
                   <span class="input-group-btn">
-                    <button class="btn btn-secondary" type="button" id="fileUpload" disabled>Up Load Avatar</button>
+                    <button class="btn btn-secondary" type="submit" id="fileUpload" disabled>Up Load Avatar</button>
                   </span>
                 </div>
               </form>
