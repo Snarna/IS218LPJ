@@ -56,8 +56,11 @@ Route::get('/home', 'HomeController@makeHomePage')->middleware('checkauth');
 //Profile Page
 Route::get('/profile', 'ProfileController@makeProfilePage')->middleware('checkauth');
 
-//uploadAvatar
+//Upload Avatar
 Route::post('/profile', 'ProfileController@uploadAvatar')->middleware('checkauth');
+
+//Show All User Page
+Route::get('/alluser', 'AllUserController@makeAllUserPage')->middleware('checkauth');
 
 /*
 /Image Routes
