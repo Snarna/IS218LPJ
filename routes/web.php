@@ -57,7 +57,10 @@ Route::get('/home', 'HomeController@makeHomePage')->middleware('checkauth');
 Route::get('/profile', 'ProfileController@makeProfilePage')->middleware('checkauth');
 
 //Upload Avatar
-Route::post('/profile', 'ProfileController@uploadAvatar')->middleware('checkauth');
+Route::post('/profile/changeAvatar', 'ProfileController@uploadAvatar')->middleware('checkauth');
+
+//Change Name
+Route::post('/profile/changeName', 'ProfileController@changeName')->middleware('checkauth');
 
 //Show All User Page
 Route::get('/alluser', 'AllUserController@makeAllUserPage')->middleware('checkauth');

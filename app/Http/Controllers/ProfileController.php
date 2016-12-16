@@ -57,6 +57,38 @@ class ProfileController extends Controller
       }
     }
 
+    public function changeName(Request $request){
+      $userData = Auth::user();
+      $newFirstName = $request->input('newFirstName');
+      $newLastName = $request->input('newLastName');
+      //If isset
+      if(isset($newFirstName) && isset($newLastName)){
+
+        //Update User Name Information
+        $updateAvatar = $this->updateName($newFirstName, $newLastName);
+
+        //Success
+        if($updateAvatar){
+          return response()->json([
+            'status' => 1
+          ]);
+        }
+        //Failed
+        else{
+          return response()->json([
+            'status' => 0,
+            'err' => "Something wrong happend"
+          ]);
+        }
+      }
+      else{
+        return response()->json([
+          'status' => 0,
+          'err' => "New First Name & Last Name Cannot Be Empty"
+        ]);
+      }
+    }
+
     private function purifyFileName($raw){
       $userData = Auth::user();
       $arr = explode("." , $raw);
@@ -73,6 +105,15 @@ class ProfileController extends Controller
       $userData = Auth::user();
       $user = User::find($userData['id']);
       $user->avatar = $fileName;
+      $user->save();
+      return true;
+    }
+
+    private function updateName($f, $l){
+      $userData = Auth::user();
+      $user = User::find($userData['id']);
+      $user->first_name = $f;
+      $user->last_name = $l;
       $user->save();
       return true;
     }
