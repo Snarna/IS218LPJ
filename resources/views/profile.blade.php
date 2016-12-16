@@ -30,6 +30,7 @@
         //Change Name
         $("#changeNameButton").click(function(){
           //Gather Information
+          var currentUserNameSpan = $('#currentUserNameSpan');
           var button = $(this);
           var displayName = $("#nameh4");
           var firstNameSpan = $('#firstNameSpan');
@@ -69,6 +70,8 @@
                     //Change Button Function
                     button.html('Change Name');
                     button.val('edit');
+                    //Change Current User Name On Nav Bar
+                    currentUserNameSpan.html(newFirstName);
                   }
                   else{
                     errorShake($("#changeNameResponseDiv"), data.err);
