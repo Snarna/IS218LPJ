@@ -30,6 +30,7 @@
         //Change Name
         $("#changeNameButton").click(function(){
           //Gather Information
+          var button = $(this);
           var displayName = $("#nameh4");
           var firstNameSpan = $('#firstNameSpan');
           var lastNameSpan = $('#lastNameSpan');
@@ -44,8 +45,8 @@
             displayName.hide();
             changeNameForm.fadeIn();
             //Change Button Function
-            $(this).html('Save Name');
-            $(this).val('save');
+            button.html('Save Name');
+            button.val('save');
           }
           //If Save
           else if($(this).val() == "save"){
@@ -66,8 +67,8 @@
                     changeNameForm.hide();
                     displayName.fadeIn();
                     //Change Button Function
-                    $(this).html('Change Name');
-                    $(this).val('edit');
+                    button.html('Change Name');
+                    button.val('edit');
                   }
                   else{
                     errorShake($("#changeNameResponseDiv"), data.err);
