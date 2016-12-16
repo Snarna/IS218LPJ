@@ -94,10 +94,10 @@
                <p>Highlanders</p>
             </div>
             <div class="col-sm-4">
-               <div class="well">
+               <div class="well mytransparent">
                   <p>Check out my new page</p>
                </div>
-               <div class="well">
+               <div class="well mytransparent">
                   <p>Learning CSS3 animations</p>
                </div>
             </div>
