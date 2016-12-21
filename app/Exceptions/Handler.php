@@ -47,11 +47,20 @@ class Handler extends ExceptionHandler
     {
         //Query Exception Handler
         if($exception instanceof QueryException){
+          $va = array();
           if($exception->errorInfo[1] == 1062){
-            return response('Email Exist!', 200)->header('Content-Type', 'text/plain');
+            $va['email'] = "Email Exist!";
+            return response()->json([
+              'status' => 0,
+              'err' => json_encode($va)
+            ]);
           }
           else{
-            return response('Unknown Error!', 200)->header('Content-Type', 'text/plain');;
+            $va['Unknown'] = "Unknown Error!";
+            return response()->json([
+              'status' => 0,
+              'err' => json_encode($va)
+            ]);
           }
         }
 

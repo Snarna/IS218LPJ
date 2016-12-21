@@ -59,12 +59,17 @@
                     sa1:sa1,
                     sq2:sq2,
                     sa2:sa2},
+              dataType: "JSON",
               success:function(data){
-                if(data == "pass"){
+                if(data.status == 1){
                   window.location.href = "../signupsuccess";
                 }
                 else{
-                  errorShake($("#signupresponsediv"), data);
+                  var errData = '';
+                  $.each($.parseJSON(data.err), function(key,val){
+                    errData += val + "<br>";
+                  });
+                  errorShake($("#signupresponsediv"), errData);
                 }
               },
               error:function(xhr, ajaxOptions, thrownError){
